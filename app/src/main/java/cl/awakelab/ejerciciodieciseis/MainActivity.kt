@@ -3,6 +3,8 @@ package cl.awakelab.ejerciciodieciseis
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import cl.awakelab.ejerciciodieciseis.databinding.ActivityMainBinding
 
 /*
 Pasos para crear un recycler view
@@ -30,9 +32,19 @@ Pasos para crear un recycler view
 */
 
 class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        val adapter = PaisesAdapter()
+        adapter.setData(PaisesLatam.paises)
+        binding.recyclerViewPaises.adapter = adapter
     }
 }
 

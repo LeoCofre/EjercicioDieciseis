@@ -1,26 +1,39 @@
 package cl.awakelab.ejerciciodieciseis
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinexamples.Pais
+import cl.awakelab.ejerciciodieciseis.databinding.ItemBinding
+import coil.load
 
-class PaisesAdapter : RecyclerView.Adapter<PaisesAdapter.ViewHolder>(){
+
+class PaisesAdapter : RecyclerView.Adapter<PaisesAdapter.ViewHolder>() {
 
     var paises = mutableListOf<Pais>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
+        val binding = ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return paises.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = paises[position]
+        holder.bind(item)
     }
 
-    class ViewHolder {
+    fun setData(listaPaises: List<Pais>) {
+        this.paises = listaPaises.toMutableList()
+    }
 
+    class ViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(pais: Pais) {
+            binding.tvNombrePais.text = pais.nombre
+            binding.tvPoblacionPais.text = pais.poblacion.toString()
+            binding.imagePais.load(pais.imgUrl)
+        }
     }
 }
